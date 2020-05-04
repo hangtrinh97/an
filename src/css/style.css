@@ -37,7 +37,7 @@ h1 {
   margin: 20px auto;
 }
 
-.note-container {
+.user-container {
   text-align: center;
   margin-top: 20px;
 }
@@ -46,4 +46,9 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+}
+
+.button {
+	width: 85px;
+	margin-right: 50px;
 }

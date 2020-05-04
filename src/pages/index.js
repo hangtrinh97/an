@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 
 const Index = () => {
   return (
-    <div className="notes-container">
+    <div className="user-container">
       <h1>Select Function</h1>
       <Link href={`/input`}>
         <Button primary>Input</Button>

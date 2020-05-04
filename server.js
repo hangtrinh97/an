@@ -15,9 +15,11 @@ io.on('connection', function(socket) {
     console.log(msg);
   });
   socket.on('input_number_python', async msg => {
+		console.log(msg)
     socket.broadcast.emit('input_number_web', msg);
   });
   socket.on('output_number_python', async msg => {
+		console.log(msg)
     socket.broadcast.emit('output_number_web', msg);
   });
 });

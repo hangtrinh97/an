@@ -12,10 +12,10 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const note = await User.findById(id);
+				const note = await User.findOne({number: id});
         if (!note) {
           return res.status(400).json({ success: false });
-        }
+				}
         res.status(200).json({ success: true, data: note });
       } catch (error) {
         res.status(400).json({ success: false });
@@ -23,7 +23,7 @@ export default async (req, res) => {
       break;
     case 'DELETE':
       try {
-        const deleteNote = await User.deleteOne({ _id: id });
+        const deleteNote = await User.deleteOne({ number: id });
         if (!deleteNote) {
           return res.status(400).json({ success: false });
         }

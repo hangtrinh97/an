@@ -2,9 +2,14 @@ import { useState, useEffect, createContext } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
+import socketClient from '../utils/socketClient';
 
 const NewUser = () => {
-  const [form, setForm] = useState({ name: '', number: "" });
+  const socket = socketClient.getInstance();
+  socket.on('input_number_web', (data) => {
+    addNumber(data);
+  });
+  const [form, setForm] = useState({ name: '', number: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const router = useRouter();
@@ -29,9 +34,15 @@ const NewUser = () => {
         },
         body: JSON.stringify(form),
       });
-      router.push('/');
+      if (res.ok === false) {
+        alert('License plate already exists');
+			}
+			setForm({
+				number: '',
+			});
+      setIsSubmitting(false);
     } catch (error) {
-      console.log("error",error);
+      console.log('error', err.response);
     }
   };
 
@@ -45,6 +56,12 @@ const NewUser = () => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const addNumber = (data) => {
+    setForm({
+      number: data,
     });
   };
 
@@ -69,6 +86,17 @@ const NewUser = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Input
               error={
+                errors.number
+                  ? { content: 'Please enter a number', pointing: 'below' }
+                  : null
+              }
+              label="Number"
+              placeholder="Number"
+              name="number"
+              value={form.number ? form.number : ''}
+            />
+            <Form.Input
+              error={
                 errors.name
                   ? { content: 'Please enter a name', pointing: 'below' }
                   : null
@@ -78,18 +106,8 @@ const NewUser = () => {
               name="name"
               onChange={handleChange}
             />
-            <Form.TextArea
-              error={
-                errors.number
-                  ? { content: 'Please enter a number', pointing: 'below' }
-                  : null
-              }
-              label="Number"
-              placeholder="Number"
-              name="number"
-              onChange={handleChange}
-            />
             <Button type="submit">Submit</Button>
+						<Button className="button" type="button" onClick={() => router.push('/')}>Exit</Button>
           </Form>
         )}
       </div>

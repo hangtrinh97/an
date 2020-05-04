@@ -3,10 +3,10 @@ import Link from 'next/link';
 const Navbar = () => (
   <nav className="navbar">
     <Link href="/">
-      <a className="navbar-brand">Hệ thống nhận dạng biển số xe</a>
+      <a className="navbar-brand">KV</a>
     </Link>
     <Link href="/new">
-      <a className="create">Nguyễn Tấn An</a>
+      <a className="create">KV</a>
     </Link>
   </nav>
 );
