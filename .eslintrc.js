@@ -15,7 +15,9 @@ module.exports = {
   ],
   rules: {
     'react/prop-types': 1,
-    radix: 0,
+		radix: 0,
+		'react/react-in-jsx-scope':0,
+		'jsx-a11y/anchor-is-valid':0,
     'react/no-string-refs': 0,
     'react/jsx-max-props-per-line': 1,
     'linebreak-style': 0,
